@@ -28,11 +28,11 @@ SCANF = "sorta", "[[", "]]";
 
 VAR_TYPE = ("nurmero" | "tersto"), IDENTIFIER, { (",", IDENTIFIER) | λ };
 
-DECLARE_FUNC = (λ | FUNC_TYPE, "[", ((FUNC_TYPE, {",", FUNC_TYPE }) | λ), "]", STATEMENT);
+DECLARE_FUNC = (λ | FUNC_TYPE, "[[", ((FUNC_TYPE, {",", FUNC_TYPE }) | λ), "]]", STATEMENT);
 
 FUNC_TYPE = { ("nurmero" | "tersto"), IDENTIFIER };
 
-CALL_FUNC = IDENTIFIER, "[" { IDENTIFIER }, { ",", IDENTIFIER }, "]";
+CALL_FUNC = IDENTIFIER, "[[" { IDENTIFIER }, { ",", IDENTIFIER }, "]]";
 
 RETURN = "vorta", RELATIONAL_EXPRESSION;
 
