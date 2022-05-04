@@ -6,35 +6,45 @@ A compiler built for my own programming language
 ```
 BLOCK = "[", STATEMENT, "]";
 
-STATEMENT =  (λ | ASSIGNMENT | BLOCK | PRINT | IF | WHILE), "apenas;";
+STATEMENT =  (λ | ASSIGNMENT | BLOCK | PRINT | IF | WHILE | VAR_TYPE), "apenas;";
 
-RELATIONAL_EXPRESSION = EXPRESSION, { ("igual" | "menor que" | "maior que"), EXPRESSION };
+RELATIONAL_EXPRESSION = EXPRESSION, { ("iguar" | "mernor " | "marior"), EXPRESSION };
 
-EXPRESSION = TERM, { ("mais" | "menos" | "or"), TERM };
+EXPRESSION = TERM, { ("maris" | "mernos" | "or" | "corcatena"), TERM };
 
-TERM = FACTOR, { ("vezes" | "dividido" | "and") };
+TERM = FACTOR, { ("verzes" | "divirdido" | "tambem") };
 
-FACTOR = NUMBER | IDENTIFIER | (("mais" | "menos" | "inverso"), FACTOR) | "[", RELATIONAL_EXPRESSION, "]" | SCANF;
+FACTOR = NUMBER | IDENTIFIER | STR | CALL_FUNC | (("maris" | "mernos" | "inverso"), FACTOR) | "[[", RELATIONAL_EXPRESSION, "]]" | SCANF;
 
-ASSIGNMENT = TYPE, IDENTIFIER, "receba", EXPRESSION;
+ASSIGNMENT = VAR_TYPE, IDENTIFIER, "receba", EXPRESSION;
 
-PRINT = "mostre", "[", EXPRESSION, "]";
+PRINT = "aspresenti", "[[", EXPRESSION, "]]";
 
-IF = "se", "[", RELATIONAL_EXPRESSION, "]", STATEMENT, { ("senao", STATEMENT) | λ };
+IF = "sir", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT, { ("sirnao", STATEMENT) | λ };
 
-WHILE = "enquanto", "[", RELATIONAL_EXPRESSION, "]", STATEMENT;
+WHILE = "enquanto", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT;
 
-SCANF = "sorta", "[", "]";
+SCANF = "sorta", "[[", "]]";
 
-TYPE = ("int"| "double" | "string");
+VAR_TYPE = ("nurmero" | "tersto"), IDENTIFIER, { (",", IDENTIFIER) | λ };
 
-FUNCTION = TYPE, IDENTIFIER, BLOCK;
+DECLARE_FUNC = (λ | FUNC_TYPE, "[", ((FUNC_TYPE, {",", FUNC_TYPE }) | λ), "]", STATEMENT);
+
+FUNC_TYPE = { ("nurmero" | "tersto"), IDENTIFIER };
+
+CALL_FUNC = IDENTIFIER, "[" { IDENTIFIER }, { ",", IDENTIFIER }, "]";
+
+RETURN = "vorta", RELATIONAL_EXPRESSION;
+
+RUN_CODE = DELCARE_FUNC
 
 NUMBER = DIGIT, { DIGIT };
 
-DIGIT = ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 );
+STR = """, (LETTER | DIGIT), """;
+
+DIGIT = (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9);
 
 IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
 
-LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z );
+LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z);
 ```
