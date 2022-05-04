@@ -1,5 +1,5 @@
-# fuziy++
-A compiler built for my own programming language
+# Pyrthon
+A compiler built for my own programming language based on rednecks
 
 ## EBNF
 
