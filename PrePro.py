@@ -6,4 +6,4 @@ class PrePro:
   
   def filter_expression(self):
     self.entire_string = re.sub("/\*.*?\*/", "", self.entire_string)
-    return re.sub(" ", "", self.entire_string)
+    return self.entire_string
