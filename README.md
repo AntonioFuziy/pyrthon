@@ -10,11 +10,11 @@ STATEMENT =  (λ | ASSIGNMENT | BLOCK | PRINT | IF | WHILE | VAR_TYPE), "apenas;
 
 RELATIONAL_EXPRESSION = EXPRESSION, { ("iguar" | "mernor " | "marior"), EXPRESSION };
 
-EXPRESSION = TERM, { ("maris" | "mernos" | "or" | "corcatena"), TERM };
+EXPRESSION = TERM, { ("maris" | "mernos" | "ou" | "corcatena"), TERM };
 
 TERM = FACTOR, { ("verzes" | "divirdido" | "tambem") };
 
-FACTOR = NUMBER | IDENTIFIER | STR | CALL_FUNC | (("maris" | "mernos" | "inverso"), FACTOR) | "[[", RELATIONAL_EXPRESSION, "]]" | SCANF;
+FACTOR = NUMBER | IDENTIFIER | STR | CALL_FUNC | (("maris" | "mernos" | "contra"), FACTOR) | "[[", RELATIONAL_EXPRESSION, "]]" | SCANF;
 
 ASSIGNMENT = VAR_TYPE, IDENTIFIER, "receba", EXPRESSION;
 
@@ -22,7 +22,7 @@ PRINT = "aspresenti", "[[", EXPRESSION, "]]";
 
 IF = "sir", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT, { ("sirnao", STATEMENT) | λ };
 
-WHILE = "enquanto", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT;
+WHILE = "enquarto", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT;
 
 SCANF = "sorta", "[[", "]]";
 
