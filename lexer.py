@@ -17,7 +17,7 @@ class Lexer():
     self.lexer.add('MULT', r'verzes')
     self.lexer.add('DIV', r'divirdido')
     self.lexer.add('CONCATENATE', r'corcatena')
-    self.lexer.add('EQUAL', r'iguar')
+    self.lexer.add('EQUAL', r'receba')
 
     self.lexer.add('NOT', r'contra')
     self.lexer.add('AND', r'tambem')
@@ -30,11 +30,9 @@ class Lexer():
     self.lexer.add('STRING', r'[a-zA-Z0-9\]*')
     self.lexer.add('IDENTIFIER', r'[a-zA-Z | _] [0-9a-zA-Z]*')
   
-    self.lexer.add('WHILE', r'sorta')  
-    self.lexer.add('IF', r'sorta')  
-    self.lexer.add('', r'sorta')  
-    self.lexer.add('SCANF', r'sorta')  
-    self.lexer.add('SCANF', r'sorta')
+    self.lexer.add('WHILE', r'enquarto')  
+    self.lexer.add('IF', r'sir')  
+    self.lexer.add('ELSE', r'sirnao')
     self.lexer.add('PRINT', r'aspresenti')  
     self.lexer.add('SCANF', r'sorta')
     
