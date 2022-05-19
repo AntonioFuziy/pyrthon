@@ -20,7 +20,7 @@ ASSIGNMENT = VAR_TYPE, IDENTIFIER, "receba", RELATIONAL_EXPRESSION;
 
 PRINT = "aspresenti", "[[", RELATIONAL_EXPRESSION, "]]";
 
-IF = "sir", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT, { ("sirnao", STATEMENT) | λ };
+IF = "sir", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT, { ("sirnao", STATEMENT) | SEMI_COLON };
 
 WHILE = "enquarto", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT;
 
