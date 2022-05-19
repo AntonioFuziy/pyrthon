@@ -52,4 +52,4 @@ flex -l tokens.l
 
 bison -dv parser.y
 
-gcc -o aps aps.tab.c lex.yy.c -lfl
+gcc -o pyrthon parser.tab.c lex.yy.c -lfl
