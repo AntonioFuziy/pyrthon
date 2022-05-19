@@ -14,11 +14,11 @@ EXPRESSION = TERM, { ("maris" | "mernos" | "ou" | "corcatena"), TERM };
 
 TERM = FACTOR, { ("verzes" | "divirdido" | "tambem") };
 
-FACTOR = NUMBER | IDENTIFIER | STR | CALL_FUNC | (("maris" | "mernos" | "contra"), FACTOR) | "[[", RELATIONAL_EXPRESSION, "]]" | SCANF;
+FACTOR = INT | IDENTIFIER | STRING | CALL_FUNC | (("maris" | "mernos" | "contra"), FACTOR) | "[[", RELATIONAL_EXPRESSION, "]]" | SCANF;
 
-ASSIGNMENT = VAR_TYPE, IDENTIFIER, "receba", EXPRESSION;
+ASSIGNMENT = VAR_TYPE, IDENTIFIER, "receba", RELATIONAL_EXPRESSION;
 
-PRINT = "aspresenti", "[[", EXPRESSION, "]]";
+PRINT = "aspresenti", "[[", RELATIONAL_EXPRESSION, "]]";
 
 IF = "sir", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT, { ("sirnao", STATEMENT) | λ };
 
@@ -28,6 +28,17 @@ SCANF = "sorta", "[[", "]]";
 
 VAR_TYPE = ("nurmero" | "tersto"), IDENTIFIER, { (",", IDENTIFIER) | λ };
 
+INT = DIGIT, { DIGIT };
+
+STRING = """, (LETTER | DIGIT), """;
+
+DIGIT = (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9);
+
+IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
+
+LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z);
+
+//sem tanta certeza
 DECLARE_FUNC = (λ | FUNC_TYPE, "[[", ((FUNC_TYPE, {",", FUNC_TYPE }) | λ), "]]", STATEMENT);
 
 FUNC_TYPE = { ("nurmero" | "tersto"), IDENTIFIER };
@@ -37,16 +48,6 @@ CALL_FUNC = IDENTIFIER, "[[" { IDENTIFIER }, { ",", IDENTIFIER }, "]]";
 RETURN = "vorta", RELATIONAL_EXPRESSION;
 
 RUN_CODE = DELCARE_FUNC
-
-NUMBER = DIGIT, { DIGIT };
-
-STR = """, (LETTER | DIGIT), """;
-
-DIGIT = (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9);
-
-IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
-
-LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z);
 ```
 flex -l tokens.l
 
