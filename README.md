@@ -1,5 +1,5 @@
 # Pyrthon
-A compiler built for my own programming language based on rednecks
+A compiler built for my own programming language based on rural speech.
 
 ## EBNF
 

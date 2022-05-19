@@ -18,7 +18,6 @@ program : block
         ;
 
 block : OPEN_BRACKET statement CLOSE_BRACKET
-      | OPEN_BRACKET CLOSE_BRACKET
       ;
         
 statement : assigment
@@ -30,23 +29,23 @@ statement : assigment
           SEMI_COLON
           ;
         
-relexpression: expression EQUALTO
-             | expression MINOR
-             | expression GREATER
+relexpression: expression EQUALTO expression
+             | expression MINOR expression
+             | expression GREATER expression
              | expression
              ;
 
-expression: term PLUS
-          | term MINUS
-          | term OR
-          | term CONCATENATE
+expression: term PLUS term
+          | term MINUS term
+          | term OR term
+          | term CONCATENATE term
           | term
           ;
 
 term: factor
-    | factor MULT
-    | factor DIV
-    | factor AND
+    | factor MULT factor
+    | factor DIV factor
+    | factor AND factor
     ;
 
 factor: INT

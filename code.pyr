@@ -1,6 +1,6 @@
 [
     aspresenti[[1]] apenas;
     nurmero num apenas;
-    num receba 3;
+    num receba 3 apenas;
     aspresenti[[num]] apenas;
 ]
