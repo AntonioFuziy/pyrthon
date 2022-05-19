@@ -18,6 +18,7 @@ program : block
         ;
 
 block : OPEN_BRACKET statement CLOSE_BRACKET
+      | OPEN_BRACKET CLOSE_BRACKET
       ;
         
 statement : assigment

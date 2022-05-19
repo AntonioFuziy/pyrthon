@@ -40,8 +40,8 @@
 
 [a-zA-Z0-9]            return STRING;
 [a-zA-Z_][_a-zA-Z0-9]  return IDENTIFIER;
-[0-9]+                  return INT;
+[0-9]+                 return INT;
 
-.                       printf("Unknown token!n"); yyterminate();
+.                      printf("Unknown token!n"); yyterminate();
 
 %%
