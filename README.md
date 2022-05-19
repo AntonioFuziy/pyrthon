@@ -48,3 +48,8 @@ IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
 
 LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z);
 ```
+flex -l tokens.l
+
+bison -dv parser.y
+
+gcc -o aps aps.tab.c lex.yy.c -lfl

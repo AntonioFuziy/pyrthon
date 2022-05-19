@@ -1,48 +1,46 @@
 %{
-#include <string>
-#include "node.h"
-#include "parser.hpp"
-#define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
-#define TOKEN(t) (yylval.token = t)
-extern "C" int yywrap() { }
+#include <stdio.h>
+#include <string.h>
+#include "parser.tab.h"
 %}
 
 %%
 
-[ \t\n]                 ;
-[a-zA-Z0-9\]*           SAVE_TOKEN; return STRING;
-[a-zA-Z_][a-zA-Z0-9_]*  SAVE_TOKEN; return IDENTIFIER;
-[0-9]+                  SAVE_TOKEN; return INT;
+[ \t\n]
 
-"receba"                return TOKEN(EQUAL);
-"iguar"                 return TOKEN(EQUALTO);
-"mernor"                return TOKEN(MINOR);
-"marior"                return TOKEN(GREATER);
-"contra"                return TOKEN(NOT);
-"tambem"                return TOKEN(AND);
-"ou"                    return TOKEN(OR);
+"receba"                return EQUAL;
+"iguar"                 return EQUALTO;
+"mernor"                return MINOR;
+"marior"                return GREATER;
+"contra"                return NOT;
+"tambem"                return AND;
+"ou"                    return OR;
 
-"[["                    return TOKEN(OPEN_PAR);
-"]]"                    return TOKEN(CLOSE_PAR);
-"["                     return TOKEN(OPEN_BRACKET);
-"]"                     return TOKEN(CLOSE_BRACKET);
-"apenas;"               return TOKEN(SEMI_COLON);
+"[["                    return OPEN_PAR;
+"]]"                    return CLOSE_PAR;
+"["                     return OPEN_BRACKET;
+"]"                     return CLOSE_BRACKET;
+"apenas;"               return SEMI_COLON;
 
-"corcatena"             return TOKEN(CONCATENATE);
-","                     return TOKEN(SEPARATOR);
-"maris"                 return TOKEN(PLUS);
-"mernos"                return TOKEN(MINUS);
-"verzes"                return TOKEN(MULT);
-"divirdido"             return TOKEN(DIV);
+"aspresenti"            return PRINT;
+"sorta"                 return SCANF;
+"enquarto"              return WHILE;
+"sir"                   return IF;
+"sirnao"                return ELSE;
+"nurmero"               return VAR_TYPE;
+"tersto"                return VAR_TYPE;
+"return"                return RETURN;
 
-"aspresenti"            return TOKEN(PRINTF);
-"sorta"                 return TOKEN(SCANF);
-"enquarto"              return TOKEN(WHILE);
-"sir"                   return TOKEN(IF);
-"sirnao"                return TOKEN(ELSE);
-"nurmero"               return TOKEN(INT);
-"tersto"                return TOKEN(STRING);
-"return"                return TOKEN(RETURN);
+"corcatena"             return CONCATENATE;
+","                     return SEPARATOR;
+"maris"                 return PLUS;
+"mernos"                return MINUS;
+"verzes"                return MULT;
+"divirdido"             return DIV;
+
+[a-zA-Z0-9]            return STRING;
+[a-zA-Z_][_a-zA-Z0-9]  return IDENTIFIER;
+[0-9]+                  return INT;
 
 .                       printf("Unknown token!n"); yyterminate();
 
