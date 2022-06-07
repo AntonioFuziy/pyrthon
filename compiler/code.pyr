@@ -1,0 +1,16 @@
+nurmero soma(nurmero x, nurmero y){
+  nurmero result;
+  result receba x maris y;
+  vorte(result);
+}
+
+nurmero primeiramente(){
+  nurmero n, m;
+  n receba 10;
+  m receba 5;
+  nurmero y;
+  y receba n verzes m;
+  aspresenti(y);
+  y receba soma(n, m);
+  aspresenti(y);
+}

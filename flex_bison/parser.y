@@ -60,10 +60,14 @@ factor: INT
     ;
 
 assigment: var_type IDENTIFIER EQUAL relexpression;
+
 print: PRINT OPEN_PAR relexpression CLOSE_PAR;
+
 if: IF OPEN_PAR relexpression CLOSE_PAR statement else;
+
 while: WHILE OPEN_PAR relexpression CLOSE_PAR statement;
 else: ELSE statement | SEMI_COLON;
+
 var_type: VAR_TYPE IDENTIFIER
         | SEPARATOR IDENTIFIER
         ;
