@@ -21,7 +21,7 @@ class Parser:
       Parser.tokens.select_next()
       node = Parser.relative_expression()
       if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-        raise Exception("Parenthesis error")
+        raise Exception("A parenthesis wasnt closed")
       Parser.tokens.select_next()
     
     elif Parser.tokens.actual_token.token_type == "PLUS":
@@ -39,11 +39,11 @@ class Parser:
     elif Parser.tokens.actual_token.token_type == "SCANF":
       Parser.tokens.select_next()
       if Parser.tokens.actual_token.token_type != "OPEN_PAR":
-        raise Exception("Scanf error")
+        raise Exception("A parenthesis wasnt opened")
       node = Scanf("", [])
       Parser.tokens.select_next()
       if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-        raise Exception("Scanf error")
+        raise Exception("A parenthesis wasnt closed")
       Parser.tokens.select_next()
 
     elif Parser.tokens.actual_token.token_type == "IDENTIFIER":
@@ -64,12 +64,12 @@ class Parser:
             Parser.tokens.select_next()
             node = FuncCall(function_name, children)
           else:
-            raise Exception("Func call error")
+            raise Exception("A parenthesis wasnt closed")
         
         elif Parser.tokens.actual_token.token_type == "CLOSE_PAR":
           Parser.tokens.select_next()
     else:
-      raise Exception("Parse factor error")
+      raise Exception("Variable error")
       
     return node
 
@@ -90,7 +90,7 @@ class Parser:
         node = BinOp("tambem", [node, Parser.parse_factor()])
       
       else:
-        raise Exception("Parse term error")
+        raise Exception("Binary operator doesnt exist")
 
     return node
   
@@ -115,7 +115,7 @@ class Parser:
         node = BinOp("corcatena", [node, Parser.parse_term()])
 
       else:
-        raise Exception("Parse expression")
+        raise Exception("Binary operator doesnt exist")
 
     return node
 
@@ -132,7 +132,7 @@ class Parser:
         Parser.tokens.select_next()
         node = BinOp("marior", [node, Parser.parse_expression()])
       else:
-        raise Exception("Parse relative expression error")
+        raise Exception("Comparison operator doenst exist")
     
     return node
 
@@ -146,18 +146,29 @@ class Parser:
         if Parser.tokens.actual_token.token_type == "SEMICOLON":
           Parser.tokens.select_next()
         else:
-          raise Exception("Parse statement error")
+          raise Exception("Missing semicolon")
       
       elif Parser.tokens.actual_token.token_type == "OPEN_PAR":
+        arguments = []
         Parser.tokens.select_next()
         if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-          node = FuncCall(Parser.tokens.actual_token.value, [Parser.relative_expression()])
+          node = Parser.relative_expression()
+          arguments.append(node)
+          while Parser.tokens.actual_token.token_type == "SEPARATOR":
+            Parser.tokens.select_next()
+            node = Parser.relative_expression()
+            arguments.append(node)
+          if Parser.tokens.actual_token.token_type == "CLOSE_PAR":
+            Parser.tokens.select_next()
+            node = FuncCall(Parser.tokens.actual_token.value, arguments)
+          else:
+            raise Exception("A parenthesis wasnt closed")
         else:
           Parser.tokens.select_next()
           if Parser.tokens.actual_token.token_type == "SEMICOLON":
             Parser.tokens.select_next()
           else:
-            raise Exception("Parse statement error")
+            raise Exception("Missing semicolon")
         
       # else:
       #   raise Exception("Parse statement error")
@@ -168,15 +179,15 @@ class Parser:
         Parser.tokens.select_next()
         node = Printf("aspresenti", [Parser.relative_expression()])
         if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-          raise Exception("Parse statement error")
+          raise Exception("A parenthesis wasnt closed")
         else:
           Parser.tokens.select_next()
           if Parser.tokens.actual_token.token_type == "SEMICOLON":
             Parser.tokens.select_next()
           else:
-            raise Exception("Parse statement error")
+            raise Exception("Missing semicolon")
       else:
-        raise Exception("Parse statement error")
+        raise Exception("A parenthesis wasnt opened or closed")
 
     elif Parser.tokens.actual_token.token_type == "IF":
       Parser.tokens.select_next()
@@ -184,7 +195,7 @@ class Parser:
         Parser.tokens.select_next()
         node = Parser.relative_expression()
         if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-          raise Exception("Parse statement IF error")
+          raise Exception("A parenthesis wasnt closed")
         else:
           Parser.tokens.select_next()
           other_node = Parser.parse_statement()
@@ -194,7 +205,7 @@ class Parser:
           else:
             node = If("si", [node, other_node])
       else:
-        raise Exception("Parse statement IF error")
+        raise Exception("A parenthesis wasnt opened or closed")
 
     elif Parser.tokens.actual_token.token_type == "WHILE":
       Parser.tokens.select_next()
@@ -202,12 +213,12 @@ class Parser:
         Parser.tokens.select_next()
         node = Parser.relative_expression()
         if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-          raise Exception("Parse statement WHILE error")
+          raise Exception("A parenthesis wasnt closed")
         else:
           Parser.tokens.select_next()
           node = While("enquarto", [node, Parser.parse_statement()])
       else:
-        raise Exception("Parse statement WHILE error")
+        raise Exception("A parenthesis wasnt opened or closed")
     
     elif Parser.tokens.actual_token.token_type in ["INT", "STRING"]:
       all_types = []
@@ -224,12 +235,12 @@ class Parser:
             all_types.append(var_token)
             Parser.tokens.select_next()
           else:
-            raise Exception("Parse statement TYPE error")
+            raise Exception("Variable name error")
         if Parser.tokens.actual_token.token_type == "SEMICOLON":
           Parser.tokens.select_next()
           return VarDec(var_type, all_types)
         else:
-          raise Exception("Parse statement TYPE error")
+          raise Exception("Missing semicolon")
 
     elif Parser.tokens.actual_token.token_type == "RETURN":
       Parser.tokens.select_next()
@@ -237,16 +248,15 @@ class Parser:
         Parser.tokens.select_next()
         node = Return("vorte", [Parser.relative_expression()])
         if Parser.tokens.actual_token.token_type != "CLOSE_PAR":
-          raise Exception("Parse statement error")
+          raise Exception("Parenthesis wasnt closed")
         else:
           Parser.tokens.select_next()
           if Parser.tokens.actual_token.token_type == "SEMICOLON":
             Parser.tokens.select_next()
           else:
-            raise Exception("Parse statement error")
+            raise Exception("Missing semicolon")
       else:
-        print(Parser.tokens.actual_token.token_type)
-        raise Exception("Parse statement error")
+        raise Exception("A parenthesis wasnt opened or closed")
 
     elif Parser.tokens.actual_token.token_type == "SEMICOLON":
       node = NoOp(None, [])
@@ -267,7 +277,7 @@ class Parser:
       node = Block(None, children)
       Parser.tokens.select_next()
     else:
-      raise Exception("Parse block error")
+      raise Exception("A bracket wasnt opened or closed")
     return node
   
   def parse_declaration():
@@ -311,9 +321,9 @@ class Parser:
             children.append(node)
             
           else:
-            raise Exception("Parse declaration error")
+            raise Exception("TYPE argument Error")
     else:
-      raise Exception("Parse declaration error")
+      raise Exception("TYPE function Error")
 
     return FuncDec(function_name, children)
                 

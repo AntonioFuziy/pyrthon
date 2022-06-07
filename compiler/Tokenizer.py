@@ -57,12 +57,12 @@ class Tokenizer:
       self.actual_token = Token("CLOSE_PAR", " ")
       return self.actual_token
 
-    elif self.origin[self.position] == "{":
+    elif self.origin[self.position] == "[":
       self.position += 1
       self.actual_token = Token("OPEN_BRACKET", " ")
       return self.actual_token
     
-    elif self.origin[self.position] == "}":
+    elif self.origin[self.position] == "]":
       self.position += 1
       self.actual_token = Token("CLOSE_BRACKET", " ")
       return self.actual_token

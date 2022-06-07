@@ -1,16 +1,27 @@
-nurmero soma(nurmero x, nurmero y){
+nurmero soma(nurmero x, nurmero y, nurmero z)[
   nurmero result;
-  result receba x maris y;
+  result receba x maris y maris z;
   vorte(result);
-}
+]
 
-nurmero primeiramente(){
+nurmero primeiramente()[
   nurmero n, m;
-  n receba 10;
-  m receba 5;
+  n receba 5;
+  m receba 10;
   nurmero y;
   y receba n verzes m;
   aspresenti(y);
-  y receba soma(n, m);
+  si(n marior m)[
+    aspresenti("n maior que m");
+  ] sirnao [
+    aspresenti("n mernor que m");
+  ]
+
+  enquarto(m marior n)[
+    aspresenti(n);
+    n receba n maris 1;
+  ]
+
+  y receba soma(n, m, 3);
   aspresenti(y);
-}
+]
