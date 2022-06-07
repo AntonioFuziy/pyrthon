@@ -4,29 +4,33 @@ A compiler built for my own programming language based on rural speech.
 ## EBNF
 
 ```
-BLOCK = "[", STATEMENT, "]";
+PROGRAM = (λ | DECLARATION);
 
-STATEMENT =  (λ | ASSIGNMENT | BLOCK | PRINT | IF | WHILE | VAR_TYPE), "apenas;";
+DECLARATION = ("nurmero" | "tersto" | "vazi"), IDENTIFIER, "(", { ("nurmero" | "tersto"), IDENTIFIER, "," | ("nurmero" | "tersto"), IDENTIFIER }, ")", BLOCK;
+
+BLOCK = ("[", STATEMENT, "]" | "[", "]");
+
+STATEMENT =  (λ | ASSIGNMENT | BLOCK | PRINT | IF | WHILE | VAR_TYPE | RETURN), ";";
 
 RELATIONAL_EXPRESSION = EXPRESSION, { ("iguar" | "mernor " | "marior"), EXPRESSION };
 
 EXPRESSION = TERM, { ("maris" | "mernos" | "ou" | "corcatena"), TERM };
 
-TERM = FACTOR, { ("verzes" | "divirdido" | "tambem") };
+TERM = FACTOR, { ("verzes" | "divirdido" | "tambem"), FACTOR };
 
-FACTOR = INT | IDENTIFIER | STRING | CALL_FUNC | (("maris" | "mernos" | "contra"), FACTOR) | "[[", RELATIONAL_EXPRESSION, "]]" | SCANF;
+FACTOR = INT | STRING | (IDENTIFIER, { "(", { RELATIONAL_EXPRESSION, "," | RELATIONAL_EXPRESSION } ")" }) | (("maris" | "mernos" | "contra"), FACTOR) | "(", RELATIONAL_EXPRESSION, ")" | SCANF;
 
-ASSIGNMENT = VAR_TYPE, IDENTIFIER, "receba", RELATIONAL_EXPRESSION;
+ASSIGNMENT = (IDENTIFIER, "receba", RELATIONAL_EXPRESSION | "(", { RELATIONAL_EXPRESSION, "," | RELATIONAL_EXPRESSION }, ")");
 
-PRINT = "aspresenti", "[[", RELATIONAL_EXPRESSION, "]]";
+PRINT = "aspresenti", "(", RELATIONAL_EXPRESSION, ")";
 
-IF = "sir", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT, { ("sirnao", STATEMENT) | SEMI_COLON };
+IF = "si", "(", RELATIONAL_EXPRESSION, ")", STATEMENT, { ("sirnao", STATEMENT) | SEMI_COLON };
 
-WHILE = "enquarto", "[[", RELATIONAL_EXPRESSION, "]]", STATEMENT;
+WHILE = "enquarto", "(", RELATIONAL_EXPRESSION, ")", STATEMENT;
 
-SCANF = "sorta", "[[", "]]";
+RETURN = "(", RELATIONAL_EXPRESSION, ")";
 
-VAR_TYPE = ("nurmero" | "tersto"), IDENTIFIER, { (",", IDENTIFIER) | λ };
+SCANF = "sorta", "(", ")";
 
 INT = DIGIT, { DIGIT };
 
@@ -38,19 +42,4 @@ IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
 
 LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z);
 
-//sem tanta certeza
-DECLARE_FUNC = (λ | FUNC_TYPE, "[[", ((FUNC_TYPE, {",", FUNC_TYPE }) | λ), "]]", STATEMENT);
-
-FUNC_TYPE = { ("nurmero" | "tersto"), IDENTIFIER };
-
-CALL_FUNC = IDENTIFIER, "[[" { IDENTIFIER }, { ",", IDENTIFIER }, "]]";
-
-RETURN = "vorta", RELATIONAL_EXPRESSION;
-
-RUN_CODE = DELCARE_FUNC
 ```
-flex -l tokens.l
-
-bison -dv parser.y
-
-gcc -o pyrthon parser.tab.c lex.yy.c -lfl
