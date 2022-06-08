@@ -1,0 +1,18 @@
+
+
+nurmero primeiramente()[
+  nurmero i, n, k;
+  k receba 1;
+  i receba 0;
+  n receba 5;
+
+  /*enquanto i < n*/
+  enquarto(i mernor n)[
+    aspresenti(i);
+    k receba k verzes 10;
+    aspresenti(k);
+    i receba i maris 1;
+  ]
+  aspresenti("fim");
+]
+

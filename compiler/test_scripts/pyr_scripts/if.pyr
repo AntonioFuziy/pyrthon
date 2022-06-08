@@ -1,0 +1,19 @@
+
+
+nurmero primeiramente()[
+  nurmero i, j, k;
+  i receba 10;
+  j receba 5;
+
+  /*compara se i > j*/
+  si(i marior j)[
+    k receba i;
+    aspresenti("i maior que j");
+  ] /*se i <= j*/ 
+  sirnao [
+    k receba j;
+    aspresenti("j maior que i");
+  ]
+  aspresenti(k);
+]
+

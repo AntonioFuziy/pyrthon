@@ -1,0 +1,29 @@
+
+
+/*função de soma*/
+nurmero soma(nurmero x, nurmero y)[
+  nurmero z;
+  z receba x maris y;
+  vorte(z);
+]
+
+/*função de subtração*/
+nurmero sub(nurmero x, nurmero y)[
+  nurmero z;
+  z receba x mernos y;
+  vorte(z);
+]
+
+nurmero primeiramente()[
+  nurmero i, j;
+  i receba 10;
+  j receba 5;
+  /*chamada da função de soma*/
+  nurmero sum, subt;
+  sum receba soma(i, j);
+  /*chamada da função de subtração*/
+  subt receba sub(i, j);
+  aspresenti(sum);
+  aspresenti(subt);
+]
+

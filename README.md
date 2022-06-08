@@ -6,40 +6,41 @@ A compiler built for my own programming language based on rural speech.
 ```
 PROGRAM = (λ | DECLARATION);
 
-DECLARATION = ("nurmero" | "tersto" | "vazi"), IDENTIFIER, "(", { ("nurmero" | "tersto"), IDENTIFIER, "," | ("nurmero" | "tersto"), IDENTIFIER }, ")", BLOCK;
+DECLARATION = ("nurmero" | "tersto" | "vazi"), IDENTIFIER, "(", { ("nurmero" | "tersto"), IDENTIFIER, { "," | ("nurmero" | "tersto"), IDENTIFIER} }, ")", BLOCK;
 
 BLOCK = ("[", STATEMENT, "]" | "[", "]");
 
-STATEMENT =  (λ | ASSIGNMENT | BLOCK | PRINT | IF | WHILE | VAR_TYPE | RETURN), ";";
+STATEMENT =  (((λ | ASSIGNMENT | PRINT  | VAR_TYPE | RETURN), ";") | (BLOCK | IF | WHILE));
 
-RELATIONAL_EXPRESSION = EXPRESSION, { ("iguar" | "mernor " | "marior"), EXPRESSION };
-
-EXPRESSION = TERM, { ("maris" | "mernos" | "ou" | "corcatena"), TERM };
+FACTOR = INT | STRING | (IDENTIFIER, { "(", { RELEXPRESSION, { "," | RELEXPRESSION } } ")" }) | (("maris" | "mernos" | "contra" FACTOR) | "(", RELEXPRESSION, ")" | SCANF;
 
 TERM = FACTOR, { ("verzes" | "divirdido" | "tambem"), FACTOR };
 
-FACTOR = INT | STRING | (IDENTIFIER, { "(", { RELATIONAL_EXPRESSION, "," | RELATIONAL_EXPRESSION } ")" }) | (("maris" | "mernos" | "contra"), FACTOR) | "(", RELATIONAL_EXPRESSION, ")" | SCANF;
+EXPRESSION = TERM, { ("maris" | "mernos" | "ou"), TERM } ;
 
-ASSIGNMENT = (IDENTIFIER, "receba", RELATIONAL_EXPRESSION | "(", { RELATIONAL_EXPRESSION, "," | RELATIONAL_EXPRESSION }, ")");
+RELEXPRESSION = EXPRESSION , {("mernor" | "marior" | iguar") , EXPRESSION } ;
 
-PRINT = "aspresenti", "(", RELATIONAL_EXPRESSION, ")";
+WHILE = "enquarto", "(", RELEXPRESSION ,")", STATEMENT;
 
-IF = "si", "(", RELATIONAL_EXPRESSION, ")", STATEMENT, { ("sirnao", STATEMENT) | SEMI_COLON };
+IF = "si", "(", RELEXPRESSION ,")", STATEMENT, (("sirnao", STATEMENT) | λ );
 
-WHILE = "enquarto", "(", RELATIONAL_EXPRESSION, ")", STATEMENT;
+ASSIGNMENT = (IDENTIFIER, "receba", RELEXPRESSION) | ( "(", { RELEXPRESSION, { "," | RELEXPRESSION } }, ")" );
 
-RETURN = "(", RELATIONAL_EXPRESSION, ")";
+RETURN = "vorte" , "(", RELEXPRESSION, ")";
+
+PRINT = "aspresenti", "(", RELEXPRESSION, ")";
 
 SCANF = "sorta", "(", ")";
 
-INT = DIGIT, { DIGIT };
-
-STRING = """, (LETTER | DIGIT), """;
+IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
 
 DIGIT = (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9);
 
-IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
+INT = DIGIT, { DIGIT };
 
-LETTER = (a | b | c | d | ... x | y | z | A | B | ... | Y | Z);
+VAR_TYPE = ("nurmero" | "tersto") , IDENTIFIER , (λ | {"," , IDENTIFIER });
 
+STRING = """, (LETTER | DIGIT), """;
+
+LETTER = ( a | ... | z | A | ... | Z ) ;
 ```

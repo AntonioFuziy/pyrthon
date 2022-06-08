@@ -1,0 +1,6 @@
+nurmero primeiramente()[
+  nurmero n, m;
+  n receba 5;
+  m receba 10;
+  nurmero y;
+]

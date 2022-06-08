@@ -1,0 +1,28 @@
+
+
+/*função principal do programa*/
+nurmero primeiramente()[
+    /*declaração de variáveis*/
+    nurmero i, j;
+    nurmero soma, sub, mult, div;
+
+    /*atribuição de valor*/
+    i receba 10;
+    j receba 5;
+
+    /*operação de soma*/
+    soma receba i maris j;
+    /*operação de subtração*/
+    sub receba i mernos j;
+    /*operação de multiplicação*/
+    mult receba i verzes j;
+    /*operação de divisão*/
+    div receba i divirdido j;
+
+    /*printando valores das operações*/
+    aspresenti(soma);
+    aspresenti(sub);
+    aspresenti(mult);
+    aspresenti(div);
+]
+
