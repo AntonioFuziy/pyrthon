@@ -1,6 +1,30 @@
 # Pyrthon
 A compiler built for my own programming language based on rural speech.
 
+**Instructions to execute:**
+
+Go to this path
+
+```bash
+cd compiler
+```
+
+Execute the `main.py` script and don't forget to include the `.pyr` script to run the program.
+
+```bash
+python3 main.py test_scripts/pyr_scripts/hello_world.pyr
+
+or
+
+python3 main.py test_scripts/pyr_scripts/{ANY_SCRIPT}
+```
+
+The Pyrthon scripts are located on 
+
+```bash
+cd compiler/test_scripts/pyr_scripts/
+```
+
 ## EBNF
 
 ```
